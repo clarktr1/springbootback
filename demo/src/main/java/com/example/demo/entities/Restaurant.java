@@ -20,7 +20,7 @@ public class Restaurant {
     private Integer zipCode;
     private String genre;
     private String image;
-    private Integer overallScore;
+    private Float overallScore;
     private Integer peanutScore;
     private Integer eggScore;
     private Integer dairyScore;

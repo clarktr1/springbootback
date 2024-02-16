@@ -21,8 +21,8 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/test")
-    public Iterable<User> getTest() {
-        return userRepository.findAll();
+    public String getTest() {
+        return "hello world";
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
