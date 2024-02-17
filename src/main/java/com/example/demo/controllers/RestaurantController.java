@@ -18,7 +18,7 @@ public class RestaurantController {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @CrossOrigin(origins = "http://127.0.0.1:5173/")
+    @CrossOrigin(origins = "https://springrestaurant.netlify.app/")
     @GetMapping(path="/all")
     public Iterable<Restaurant> getAll(){
         return this.restaurantRepository.findAll();
