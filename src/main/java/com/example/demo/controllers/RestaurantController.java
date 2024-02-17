@@ -18,11 +18,12 @@ public class RestaurantController {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @CrossOrigin(origins = "https://springrestaurant.netlify.app/")
+    @CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
     @GetMapping(path="/all")
     public Iterable<Restaurant> getAll(){
         return this.restaurantRepository.findAll();
     }
+
 
     @PostMapping(path = "/add")
     public ResponseEntity<String> addRestaurant(Restaurant restaurant) {
