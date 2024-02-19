@@ -63,7 +63,7 @@ public class ReviewController {
     }
 
     @GetMapping(path = "/approved/restaurant_{id}")
-    @CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
+    @CrossOrigin(origins = {"*"})
     public ResponseEntity<List<Review>> findApprovedByRestaurant(@PathVariable Long id) {
         List<Review> reviewList = reviewRepository.findByRestaurantId(id);
         if (reviewList.isEmpty()) {
