@@ -21,7 +21,7 @@ public class Review {
     private int peanutScore;
     private int dairyScore;
     private int eggScore;
+    private int overallScore;
     private String commentary;
-    private Auth.Status status = Auth.Status.PENDING;
-
+    private String status = "PENDING";
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
 @RequestMapping(path = "/restaurants")
 public class RestaurantController {
     final RestaurantRepository restaurantRepository;
@@ -18,7 +19,6 @@ public class RestaurantController {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
     @GetMapping(path="/all")
     public Iterable<Restaurant> getAll(){
         return this.restaurantRepository.findAll();
@@ -55,14 +55,9 @@ public class RestaurantController {
     }
 
     @GetMapping(path = "/genre/{genre}")
+    @CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
     public List<Restaurant> getByGenre(@PathVariable String genre){
-        List<Restaurant> restaurants = this.restaurantRepository.findByGenre(genre);
-
-        if(!restaurants.isEmpty()){
-            return restaurants;
-        } else {
-            return null;
-        }
+        return this.restaurantRepository.findByGenre(genre);
     }
 
 

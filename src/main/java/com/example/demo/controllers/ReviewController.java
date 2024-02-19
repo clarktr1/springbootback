@@ -5,11 +5,11 @@ import com.example.demo.entities.Review;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.ReviewRepository;
 import com.example.demo.repositories.UserRepository;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -45,14 +45,14 @@ public class ReviewController {
     }
 
     @PutMapping(path = "/pending/{id}")
-    public ResponseEntity<String> approveReview(String userName, @PathVariable Long id, Auth.Status status) {
+    public ResponseEntity<String> approveReview(String userName, @PathVariable Long id, String status) {
         if (userName.equals("admin")) {
             Optional<Review> reviewOptional = reviewRepository.findById(id);
             if (reviewOptional.isPresent()) {
                 Review review = reviewOptional.get();
                 review.setStatus(status);
                 reviewRepository.save(review);
-                if (status.equals(Auth.Status.APPROVED)) {
+                if (status.equals("APPROVED")) {
                     return ResponseEntity.status(HttpStatus.OK).body("Review is approved");
                 } else {
                     return ResponseEntity.status(HttpStatus.OK).body("Review is denied");
@@ -62,8 +62,13 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not authorized");
     }
 
-    @GetMapping(path = "/approved/resturant_{id}")
-    public Iterable<Review> findApprovedByRestaurant(@PathVariable Long id){
-        return reviewRepository.findByRestaurantIdAndStatus(id, Auth.Status.APPROVED);
+    @GetMapping(path = "/approved/restaurant_{id}")
+    @CrossOrigin(origins = {"https://springrestaurant.netlify.app/", "http://127.0.0.1:5173/"})
+    public ResponseEntity<List<Review>> findApprovedByRestaurant(@PathVariable Long id) {
+        List<Review> reviewList = reviewRepository.findByRestaurantId(id);
+        if (reviewList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(reviewList);
     }
 }
