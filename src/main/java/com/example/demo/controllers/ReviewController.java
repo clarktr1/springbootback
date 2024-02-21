@@ -25,6 +25,7 @@ public class ReviewController {
     }
 
     @PostMapping(path = "/create")
+    @CrossOrigin(origins = {"*"})
     public ResponseEntity<String> createReview(@RequestBody Review review) {
         Optional<User> user = this.userRepository.findByUserName(review.getAuthor());
         if (user.isEmpty()) {
@@ -36,6 +37,7 @@ public class ReviewController {
     }
 
     @GetMapping(path = "/pending")
+    @CrossOrigin(origins = {"*"})
     public Iterable<Review> getPendingReviews(String userName) {
         if (userName.equals("admin")) {
             return reviewRepository.findByStatus(Auth.Status.PENDING);
@@ -45,6 +47,7 @@ public class ReviewController {
     }
 
     @PutMapping(path = "/pending/{id}")
+    @CrossOrigin(origins = {"*"})
     public ResponseEntity<String> approveReview(String userName, @PathVariable Long id, String status) {
         if (userName.equals("admin")) {
             Optional<Review> reviewOptional = reviewRepository.findById(id);
