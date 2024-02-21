@@ -3,6 +3,8 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 
 @Entity
 @Getter
@@ -24,4 +26,5 @@ public class Review {
     private int overallScore;
     private String commentary;
     private String status = "PENDING";
+    private Date date_posted;
 }
