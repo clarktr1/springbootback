@@ -26,11 +26,11 @@ public class ReviewController {
 
     @PostMapping(path = "/create")
     @CrossOrigin(origins = {"*"})
-    public ResponseEntity<String> createReview(@RequestBody Review review) {
-
+    public ResponseEntity<Void> createReview(@RequestBody Review review) {
         this.reviewRepository.save(review);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Review has been created. Pending review.");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
     @GetMapping(path = "/pending")
     @CrossOrigin(origins = {"*"})
