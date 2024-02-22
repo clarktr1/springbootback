@@ -27,10 +27,6 @@ public class ReviewController {
     @PostMapping(path = "/create")
     @CrossOrigin(origins = {"*"})
     public ResponseEntity<String> createReview(@RequestBody Review review) {
-        Optional<User> user = this.userRepository.findByUserName(review.getAuthor());
-        if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You are not authorized to make a post");
-        }
 
         this.reviewRepository.save(review);
         return ResponseEntity.status(HttpStatus.CREATED).body("Review has been created. Pending review.");
